@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641263, b: 0.57481724, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -985,8 +985,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   positionRoute: {fileID: 1664036641}
   raceDataFileName: BestRace.json
-  minSpeed: 6
-  maxSpeed: 50
   turnspeed: 20
   timeFromMinToMax: 10
   accelerationSpeedCURVE:
@@ -1127,6 +1125,8 @@ MonoBehaviour:
   RELATION_DECELERATION_SPEED: 2
   RELATION_BRAKING_SPEED: 5
   speed: 0
+  minSpeed: 6
+  maxSpeed: 50
   ghostPrefab: {fileID: 178130, guid: e178732f393e645869b1967f68a19d89, type: 3}
 --- !u!54 &1261280199
 Rigidbody:
@@ -1495,11 +1495,11 @@ MonoBehaviour:
   probaAllObst: 0.33
   probaObsts:
   - proba: 10
-    obst: {fileID: 6003450094459965933, guid: 140486711db225e4fa2e1eddd07dba33, type: 3}
+    obst: {fileID: 3001789304585694482, guid: f1ac39e02d4d0404d8732b92725e5f13, type: 3}
   - proba: 30
-    obst: {fileID: 8780424320546655309, guid: 71782582b9d2cac4cba5251a3b767d13, type: 3}
+    obst: {fileID: 7529272566996000132, guid: 506a8ccd148ee429eb19e9b7a0e7c3bd, type: 3}
   - proba: 30
-    obst: {fileID: 5924013827781158161, guid: cdcb19fde9e8cba40b7bff849baf2c1b, type: 3}
+    obst: {fileID: 5069812068012810803, guid: 26a9a05ce89254052b5860306f74fb98, type: 3}
   - proba: 30
     obst: {fileID: 2625961391336284975, guid: 9ece199d535cbcb45883b27e74680e14, type: 3}
   - proba: 30
