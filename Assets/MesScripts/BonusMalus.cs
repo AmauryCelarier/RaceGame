@@ -1,5 +1,6 @@
 using UnityEngine;
 
+using MyGameNamespace;
 public class BonusMalus : MonoBehaviour
 {
     [Header("Effect Type")]

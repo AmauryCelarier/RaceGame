@@ -3,6 +3,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+using MyGameNamespace;
 public class RealistPlayerController : MonoBehaviour
 {
     public Transform positionRoute;
@@ -40,17 +41,40 @@ public class RealistPlayerController : MonoBehaviour
 
     private GameObject player;
 
+    public float increasePeriod = 10;
+    private const float COEFF_INCREASE_DIFF = 1.05f;
+
     public GameObject ghostPrefab;
     private GameObject ghostInstance;
 
     private void Start()
     {
+        DifficultySettings currentSettings = GameManager.Instance.GetCurrentDifficultySettings();
+        minSpeed = currentSettings.minSpeed;
+        maxSpeed = currentSettings.maxSpeed;
+        timeFromMinToMax = currentSettings.timeFromMinToMax;
+
         player = gameObject;
-        speed = GameManager.Instance.currentMinSpeed;
+        speed = minSpeed;
         currentRaceData = new RaceData();
         raceStartTime = Time.time;
         LoadRaceData();
         ReplayGhost();
+    }
+
+    void Awake()
+    {
+        DifficultySettings currentSettings = GameManager.Instance.GetCurrentDifficultySettings();
+        InvokeRepeating("UpdateDifficulty", currentSettings.increasePeriod, currentSettings.increasePeriod);
+    }
+
+    private void UpdateDifficulty()
+    {
+        DifficultySettings currentSettings = GameManager.Instance.GetCurrentDifficultySettings();
+        Debug.Log("Curr_ProbaAllObst : augmente niveau");
+        minSpeed *= COEFF_INCREASE_DIFF;
+        GameManager.Instance.SetCurrentMinAndMaxSpeed(minSpeed, maxSpeed);
+        if (minSpeed > maxSpeed) minSpeed = maxSpeed; // Limite à la vitesse max
     }
 
     private void Update()

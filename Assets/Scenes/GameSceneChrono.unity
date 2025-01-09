@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641263, b: 0.57481724, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -911,6 +911,7 @@ MonoBehaviour:
   OnMalusApplied:
     m_PersistentCalls:
       m_Calls: []
+  currentDifficulty: {fileID: 0}
 --- !u!4 &1230050462
 Transform:
   m_ObjectHideFlags: 0
@@ -1127,6 +1128,7 @@ MonoBehaviour:
   speed: 0
   minSpeed: 6
   maxSpeed: 50
+  increasePeriod: 10
   ghostPrefab: {fileID: 178130, guid: e178732f393e645869b1967f68a19d89, type: 3}
 --- !u!54 &1261280199
 Rigidbody:
@@ -1488,6 +1490,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1261280190}
+  patterns:
+  - {fileID: 100000, guid: d80c7433031fdee44bf3910c4b046ce7, type: 3}
+  - {fileID: 100000, guid: b09bde6fef0471e48b48efb5dd8b4cab, type: 3}
+  - {fileID: 100000, guid: 0bcec30f505e96847bfd7af943bb7ab5, type: 3}
+  - {fileID: 100000, guid: dce3aa04e1b71ea4f8fc8616f0f760f4, type: 3}
   pattern: {fileID: 100000, guid: d80c7433031fdee44bf3910c4b046ce7, type: 3}
   nbPatternsInitRoad: 20
   posInitPattern: {fileID: 1664036641}
@@ -1500,9 +1507,9 @@ MonoBehaviour:
     obst: {fileID: 7529272566996000132, guid: 506a8ccd148ee429eb19e9b7a0e7c3bd, type: 3}
   - proba: 30
     obst: {fileID: 5069812068012810803, guid: 26a9a05ce89254052b5860306f74fb98, type: 3}
-  - proba: 30
+  - proba: 1
     obst: {fileID: 2625961391336284975, guid: 9ece199d535cbcb45883b27e74680e14, type: 3}
-  - proba: 30
+  - proba: 1
     obst: {fileID: 168273317638356663, guid: 7e78b54a147442a4f9ebcb4ca79959e8, type: 3}
   trsfParentObst: {fileID: 1614018214}
   increasePeriod: 10

@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static CreateRealTimeRoad;
 
+using MyGameNamespace;
 public class CreateRealTimeRoad : MonoBehaviour
 {
     [Header("Player")]
@@ -15,6 +16,7 @@ public class CreateRealTimeRoad : MonoBehaviour
     [Space(20)]
     
     [Header("Road & Patterns")]
+    public List<GameObject> patterns;
     public GameObject pattern;
     [Range(10, 30)]
     public int nbPatternsInitRoad=20;    // valeur par défaut
@@ -60,6 +62,10 @@ public class CreateRealTimeRoad : MonoBehaviour
     // Creer la route dans le AWAKE, première fonction appelée
     void Awake()
     { // création de la route intiale sans obstacle
+
+        DifficultySettings currentSettings = GameManager.Instance.GetCurrentDifficultySettings();
+        probaAllObst = currentSettings.probaAllObst;
+
         initialRoad = new BuildInitRoad(posInitPattern, pattern, nbPatternsInitRoad, out lastPosPattern, trsfParentRoad);
         
         
@@ -86,7 +92,7 @@ public class CreateRealTimeRoad : MonoBehaviour
             }
 
         // modification de la difficulté dans le temps 
-        InvokeRepeating("UpdateDifficulty", increasePeriod, increasePeriod);
+        InvokeRepeating("UpdateDifficulty", currentSettings.increasePeriod, currentSettings.increasePeriod);
 
         coeff = 0.0f;
 
@@ -101,7 +107,9 @@ public class CreateRealTimeRoad : MonoBehaviour
     // … des proba fournies pour chacun d'eux 
 
     void Update()
-    {   coeff += (player.position.z - lastPosPlayer) / dimPattern.x;
+    {
+        DifficultySettings currentSettings = GameManager.Instance.GetCurrentDifficultySettings();
+        coeff += (player.position.z - lastPosPlayer) / dimPattern.x;
         // coeff  au cas ou la vitesse du véhicule lui fait franchir plus d'un pattern entre 2 frames !! 
         // += pour ne pas perdre la portion de route non comptabilisé à la frame précédente
         while (coeff> 1.0f  )              // si au moins la distance d'un pattern parcouru
@@ -115,6 +123,17 @@ public class CreateRealTimeRoad : MonoBehaviour
             // les GameObject  pattern de route sont instantié dynamiquement (3D procédurale) 
             // on leur ajoute l'instance de la classe permettant de les détruire automaqiuement quand inutiles  (Question H )
             // on leur ajoute les paramètres attendus (qui ne peuvent être connus par un prefab mais doivent etre connus par l'instance créée du prefab)
+            int randomValue = Random.Range(1, 101);
+
+
+            if (randomValue <= currentSettings.probaPattern0)
+                pattern = patterns[0];
+            else if (randomValue <= currentSettings.probaPattern0 + currentSettings.probaPattern1)
+                pattern = patterns[1];
+            else if (randomValue <= currentSettings.probaPattern0 + currentSettings.probaPattern1 + currentSettings.probaPattern2)
+                pattern = patterns[2];
+            else
+                pattern = patterns[3];
             GameObject newPattern = initialRoad.AddPatternRoad(pattern, ref lastPosPattern, "patternRd", trsfParentRoad);
             newPattern.AddComponent<AutoDestructWhenUseless>();                                     // (Question H )
             newPattern.GetComponent<AutoDestructWhenUseless>().player = player;                     // (Question H )
