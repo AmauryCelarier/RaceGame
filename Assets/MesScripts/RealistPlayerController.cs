@@ -39,6 +39,8 @@ public class RealistPlayerController : MonoBehaviour
     private float horizontalInput;
     private float forwardInput;
 
+    public bool IsBreaking = false;
+
     private GameObject player;
 
     public float increasePeriod = 10;
@@ -104,6 +106,7 @@ public class RealistPlayerController : MonoBehaviour
         // FREINAGE
         if (forwardInput < -0.01f)
         {
+            IsBreaking = true;
             brake_x += Time.deltaTime;
             if (brake_x > 1) brake_x = 1;
 
@@ -112,6 +115,7 @@ public class RealistPlayerController : MonoBehaviour
         }
         else
         {
+            IsBreaking = false;
             brake_x -= Time.deltaTime;
             if (brake_x < 0) brake_x = 0;
         }
